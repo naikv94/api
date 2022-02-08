@@ -4,7 +4,7 @@ from .models import Company,Contact
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ['name','country','contact']
+    list_display = ['uid','name','country','contact']
     search_fields = ['name','country']
 
 @admin.register(Contact)

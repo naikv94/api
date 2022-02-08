@@ -164,10 +164,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-try:
-    from crm_main.local_settings import *
-except ImportError:
-    pass
+# try:
+#     from crm_main.local_settings import *
+# except ImportError:
+#     pass
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
@@ -184,5 +184,3 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-SOCIAL_AUTH_FACEBOOK_KEY = '565284834205523'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = 'c6b12784c9589a0b3bdfe33114a19688'  # App Secret

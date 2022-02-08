@@ -1,16 +1,10 @@
-from multiprocessing import context
-from pyexpat import model
-from re import template
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 from .forms import SignUpForm, UserForm, ProfileForm, CompanyForm, ContactForm
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from apps.userprofile.models import Profile
 from .models import Company, Contact
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
@@ -130,6 +124,7 @@ class ContactListView(LoginRequiredMixin,ListView,FormMixin):
         contact_form = ContactForm(post_data)
 
         if contact_form.is_valid():
+            
             contact_form.save()
             messages.success(request, 'Contact added successfully!')
             return HttpResponseRedirect(reverse_lazy('contacts'))
@@ -149,6 +144,7 @@ class CompanyListView(LoginRequiredMixin,ListView,FormMixin):
             data = self.model.objects.filter(Q(name__icontains=query)| Q(country__icontains=query))
         else:
             data = self.model.objects.all()
+            print('data',data)
         return data
 
     def post(self, request):
@@ -157,7 +153,7 @@ class CompanyListView(LoginRequiredMixin,ListView,FormMixin):
         company_form = CompanyForm(post_data)
         print('c user',self.request.user.id)
         if company_form.is_valid():
-            print('form data', company_form)
+            print('form data', company_form.cleaned_data['name'])
             company_form.save()
             messages.success(request, 'Company added successfully!')
             return HttpResponseRedirect(reverse_lazy('companies'))
